@@ -1,0 +1,191 @@
+
+
+/********** common delfi LESS mixins to use ***************/
+
+/***
+
+	Cross-Browses CCS3 definitions based on: http://css3please.com
+
+***/
+
+/*
+	generic block element reset
+*/
+.block () {
+	display: block;
+	border: none;
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/*
+	generic cross-browser inline block definition and reset
+*/
+.inline-block () {
+	margin: 0;
+	padding: 0;
+ 	display: inline-block;
+	display: -moz-inline-box;
+  	zoom: 1;
+	*display: inline;
+}
+
+
+.background-clip-padding () {
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+}
+
+.border-box () {
+	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.content-box () {
+	-ms-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+.select-none () {
+	user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+}
+
+.drag-none () {
+	-moz-user-drag: -moz-none;
+	-webkit-user-drag: none;
+	user-drag: none;
+}
+
+.selectable () {
+	user-select: auto;
+	-moz-user-select: text;
+	-webkit-user-select: auto;
+}
+
+.ellipsis () {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
+}
+
+.bg-size (@x, @y) {
+  -webkit-background-size: @x @y;
+          background-size: @x @y;
+}
+
+
+/* 
+	usage:	.rounded-corners(5px);
+*/
+.rounded-corners (@px) {
+	-webkit-border-radius: @px;
+	border-radius: @px;
+	.background-clip-padding;
+}
+
+/* 
+	usage:	.border-radius(5px, 0, 0 5px);
+*/
+.border-radius (@topleft: 0, @topright: 0, @bottomright: 0, @bottomleft: 0 ) {
+	-webkit-border-top-left-radius: @topleft;
+	-webkit-border-top-right-radius: @topright;
+	-webkit-border-bottom-right-radius: @bottomright;
+	-webkit-border-bottom-left-radius: @bottomleft;
+	border-top-left-radius: @topleft;
+	border-top-right-radius: @topright;
+	border-bottom-right-radius: @bottomright;
+	border-bottom-left-radius: @bottomleft;
+	.background-clip-padding;
+}
+
+/*
+	usage	.box-shadow(1px, 2px, #000);
+			.box-shadow(1px, 2px, #000, 3px);
+			.box-shadow(1px, 2px, #000, 2px, 4px);
+
+	1. The horizontal offset of the shadow, positive means the shadow will be on the right of the box, a negative offset will put the shadow on the left of the box.
+	2. The vertical offset of the shadow, a negative one means the box-shadow will be above the box, a positive one means the shadow will be below the box.
+	3. Color
+	4. The blur radius (optional), if set to 0 the shadow will be sharp, the higher the number, the more blurred it will be.
+	5. The spread radius (optional), positive values increase the size of the shadow, negative values decrease the size. Default is 0 (the shadow is same size as blur).
+
+*/
+.box-shadow (@horizontal: 0, @vertical: 0, @color: #000, @blur: 0, @spread: 0) {
+	-webkit-box-shadow: @horizontal @vertical @blur @spread @color;
+	box-shadow: @horizontal @vertical @blur @spread @color;
+}
+
+
+/*
+	usage: .linear-vertical-gradient (#000, rgba(127,127,127,0.5) );
+*/
+.linear-vertical-gradient (@start, @end) {
+	background-color: @end;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@start), to(@end));
+	background-image: -webkit-linear-gradient(top, @start, @end);
+	background-image:    -moz-linear-gradient(top, @start, @end);
+	background-image:      -o-linear-gradient(top, @start, @end);
+	background-image:         linear-gradient(to bottom, @start, @end);
+	filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=argb(@start), endColorstr=argb(@end))";
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=argb(@start), endColorstr=argb(@end))";
+}
+
+/*
+	usage: .linear-horizontal-gradient (#000, rgba(127,127,127,0.5) );
+*/
+.linear-horizontal-gradient (@start, @end) {
+	background-color: @start;
+	background-image: -webkit-gradient(linear, left top, right top, from(@start), to(@end));
+	background-image: -webkit-linear-gradient(to right, @start, @end);
+	background-image:    -moz-linear-gradient(to right, @start, @end);
+	background-image:      -o-linear-gradient(to right, @start, @end);
+	background-image:         linear-gradient(to right, @start, @end);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=argb(@start), endColorstr=argb(@end));
+	//-ms-filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=argb(@start), endColorstr=argb(@end));
+}
+
+/*
+	usage .opacity(90);
+	NB! value is 0..100! (not 0..1)
+*/
+.opacity (@amount) {
+	opacity: (@amount / 100);
+	-ms-filter: e('"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{amount})"');
+	filter: e("alpha(opacity=@{amount})");
+}
+
+/*
+	usage: .transparent-background(rgba(127,127,127,0.5) );
+*/
+.transparent-background (@color:  rgba(0,0,0,0.5) ) {
+	background-color: rgb(@color);
+	background-color: @color;
+	background:transparent\9;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=argb(@color),endColorstr=argb(@color));
+	zoom: 1;
+}
+
+
+/*
+	generic icon definition template
+	usage: .icon(20px, 20px, "sprite.png");
+*/
+.icon (@width: 20px, @height: 20px, @sprite) {
+	vertical-align: text-bottom;
+	.inline-block;
+	height: @height;
+	width: @width;
+	background: e("url(@{sprite}) 0 0 no-repeat");
+}
+
