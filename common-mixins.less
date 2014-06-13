@@ -4,6 +4,52 @@
 
 ***/
 
+
+.translate (@x, @y) {
+	transform: translate(@x, @y);
+	-webkit-transform: translate(@x, @y);
+}
+
+.transform-origin (@x, @y) {
+	transform-origin: @x @y;
+	-webkit-transform-origin: @x @y;
+}
+
+.transform (@p) {
+	transform: @p;
+	-webkit-transform: @p;
+}
+
+.transition-duration(@s) {
+	-webkit-transition-duration: @s;
+	transition-duration: @s;
+}
+
+.transition-property(@p) {
+	-webkit-transition-property: @p;
+	transition-property: @p;
+}
+
+.transition-timing-function(@f) {
+	-webkit-transition-timing-function: @f;
+	transition-timing-function: @f;
+}
+
+.animation-duration(@s) {
+	animation-duration: @s;
+	-webkit-animation-duration: @s;
+}
+
+.animation-iteration-count(@c) {
+	-webkit-animation-iteration-count: @c;
+	animation-iteration-count: @c;
+}
+
+.animation-name(@name) {
+	animation-name: @name;
+	-webkit-animation-name: @name;
+}
+
 /*
 	generic block element reset
 */
@@ -52,6 +98,7 @@
 .select-none () {
 	user-select: none;
 	-moz-user-select: -moz-none;
+	-ms-user-select: none;
 	-webkit-user-select: none;
 }
 
@@ -65,6 +112,7 @@
 	user-select: auto;
 	-moz-user-select: text;
 	-webkit-user-select: auto;
+	-ms-user-select: element;
 }
 
 .ellipsis () {
@@ -87,7 +135,7 @@
 .rounded-corners (@px) {
 	-webkit-border-radius: @px;
 	border-radius: @px;
-	.background-clip-padding;
+//	.background-clip-padding;
 }
 
 /* 
@@ -133,8 +181,8 @@
 	background-image:    -moz-linear-gradient(top, @start, @end);
 	background-image:      -o-linear-gradient(top, @start, @end);
 	background-image:         linear-gradient(to bottom, @start, @end);
-	filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=argb(@start), endColorstr=argb(@end))";
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=argb(@start), endColorstr=argb(@end))";
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=argb(@start), endColorstr=argb(@end));
+//	-ms-filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=argb(@start), endColorstr=argb(@end));
 }
 
 /*
@@ -184,4 +232,25 @@
 	width: @width;
 	background: e("url(@{sprite}) 0 0 no-repeat");
 }
+
+/*
+	those are just a slam dunk mixins of very basic, but 100% compatible flex box things
+*/
+.display-flex () {
+  	display: -webkit-box;
+  	display: -moz-box;
+  	display: -ms-flexbox;
+  	display: -webkit-flex;
+  	display: flex;
+	flex-flow: row nowrap;
+}
+
+.flex (@grow: 0) {
+  	-webkit-box-flex: @grow;
+  	-moz-box-flex: @grow;
+  	-webkit-flex: @grow;
+  	-ms-flex: @grow 1 auto;
+  	flex: @grow;
+}
+
 
